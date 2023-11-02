@@ -1,0 +1,30 @@
+body {
+background-color:Arial;
+padding:25px;
+font-size:200%;
+}
+
+h1{
+color:#99D9EA;
+padding:15px;
+background:#242F3D;
+width:fit-content;
+font-family:cursive;
+font-size:110%;
+}
+
+p{
+color:#2255C4;
+padding:9px;
+width:fit-content;
+font-family:sans-serif;
+font-size:50%
+}
+
+p{
+word-spacing: 5px;
+}
+
+font{font-weight:bold;}
+
+p.special{color:#F08784;line-height:150%;border-style:double;}
