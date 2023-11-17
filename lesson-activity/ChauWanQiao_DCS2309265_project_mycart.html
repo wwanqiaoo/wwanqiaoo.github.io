@@ -1,0 +1,287 @@
+<html>
+<head>
+<title>JellyDog-My Cart</title>
+<link rel = icon href = "jellydog.jpg" type = image/jpg>
+<link rel="stylesheet" href="ChauWanQiao_DCS2309265_pro_mycart_css.css">
+<script>
+    window.onload = function() {
+        var aData = [{
+                "imgUrl": "j1.webp",
+                "proName": "Snowman ",
+                "proPrice": "339",
+                
+            },
+            {
+                "imgUrl": "j2.webp",
+                "proName": "Penguin ",
+                "proPrice": "209",
+               
+            },
+            {
+                "imgUrl": "j3.webp",
+                "proName": "Standing Penguin ",
+                "proPrice": "229",
+                
+            },
+            {
+                "imgUrl": "j4.webp",
+                "proName": " Snow Sheep ",
+                "proPrice": "509",
+                
+            },
+            {
+                "imgUrl": "j5.jpg",
+                "proName": "Capybara",
+                "proPrice": "109",
+                
+            },
+            {
+                "imgUrl": "j6.webp",
+                "proName": " Lying Rabbit ",
+                "proPrice": "259",
+                
+            },
+            {
+                "imgUrl": "a1.jpg",
+                "proName": "Birdling Blue Jay",
+                "proPrice": "299",
+                
+            },
+            {
+                "imgUrl": "a2.jpg",
+                "proName": "Sleepy Owl",
+                "proPrice": "109",
+            },
+            {
+                "imgUrl": "a3.jpg",
+                "proName": " Flamingo ",
+                "proPrice": "99",
+            },
+            {
+                "imgUrl": "a4.jpg",
+                "proName": "Lovely Penguin ",
+                "proPrice": "599",
+            },
+            {
+                "imgUrl": "a5.jpg",
+                "proName": "World-weary Owl ",
+                "proPrice": "359",
+            },
+            {
+                "imgUrl": "a6.webp",
+                "proName": "Angry Turtle ",
+                "proPrice": "129",
+            },
+            
+        ];
+
+        
+        var oBox = document.getElementById("box");
+        var oCar = document.getElementById("car");
+        var oUl = document.getElementsByTagName("ul")[0];
+
+        for (var i = 0; i < aData.length; i++) {
+            var oLi = document.createElement("li");
+            var data = aData[i];
+
+            oLi.innerHTML += '<div class="pro_img"><img src="' + data["imgUrl"] + '" width="150" height="150"></div>';
+            oLi.innerHTML += '<h3 id="h3" class="pro_name"><a rel="nofollow" href="#">' + data["proName"] + '</a></h3>';
+            oLi.innerHTML += '<p class="pro_price">' + 'RM'+ data["proPrice"];
+            oLi.innerHTML += '<div class="add_btn">Add to Cart</div>';
+            oUl.appendChild(oLi);
+
+        }
+        var aBtn = getClass(oBox, "add_btn");
+        var number = 0;
+        for (var i = 0; i < aBtn.length; i++) {
+            number++;
+            aBtn[i].index = i;
+            aBtn[i].onclick = function() {
+                var oDiv = document.createElement("div");
+                var data = aData[this.index];
+                oDiv.className = "row hid";
+                oDiv.innerHTML += '<div class="check left"> <i class="i_check" id="i_check" onclick="i_check()" >√</i></div>';
+                oDiv.innerHTML += '<div class="img left"><img src="' + data["imgUrl"] + '" width="80" height="80"></div>';
+                oDiv.innerHTML += '<div class="name left"><span>' + data["proName"] + '</span></div>';
+                oDiv.innerHTML += '<div class="price left"><span>' + 'RM' + data["proPrice"]+'<span></div>';
+                oDiv.innerHTML += '<div class="item_count_i"><div class="num_count"><div class="count_d">-</div><div class="c_num">1</div><div class="count_i">+</div></div> </div>'
+                oDiv.innerHTML += '<div class="subtotal left"><span>' +'RM'+ data["proPrice"] + '<span></div>'
+                oDiv.innerHTML += '<div class="ctrl left"><a rel="nofollow" href="javascript:;">×</a></div>';
+                oCar.appendChild(oDiv);
+                var flag = true;
+                var check = oDiv.firstChild.getElementsByTagName("i")[0];
+                check.onclick = function() {
+                    if (check.className == "i_check i_acity") {
+                        check.classList.remove("i_acity");
+
+                    } else {
+                        check.classList.add("i_acity");
+                    }
+                    getAmount();
+                }
+                var delBtn = oDiv.lastChild.getElementsByTagName("a")[0];
+                delBtn.onclick = function() {
+                    var result = confirm("Confirm to delete?");
+                    if (result) {
+                        oCar.removeChild(oDiv);
+                        number--;
+                        getAmount();
+                    }
+                }
+                var i_btn = document.getElementsByClassName("count_i");
+                for (var k = 0; k < i_btn.length; k++) {
+                    i_btn[k].onclick = function() {
+                        bt = this;
+                        at = this.parentElement.parentElement.nextElementSibling;
+                        pt = this.parentElement.parentElement.previousElementSibling;
+                        node = bt.parentNode.childNodes[1];
+                        console.log(node);
+                        num = node.innerText;
+                        num = parseInt(num);
+                        num++;
+                        node.innerText = num;
+
+                        price = pt.innerText;
+                        price = price.substring(0, price.length - 1);
+                        at.innerText = "RM" + price * num;
+                        getAmount();
+                    }
+                }
+                var d_btn = document.getElementsByClassName("count_d");
+                for (k = 0; k < i_btn.length; k++) {
+                    d_btn[k].onclick = function() {
+                        bt = this;
+                        at = this.parentElement.parentElement.nextElementSibling;
+                        pt = this.parentElement.parentElement.previousElementSibling;
+                        node = bt.parentNode.childNodes[1];
+                        num = node.innerText;
+                        num = parseInt(num);
+                        if (num > 1) {
+                            num--;
+                        }
+                        node.innerText = num;
+                        price = pt.innerText;
+                        price = price.substring(0, price.length - 1);		
+                        at.innerText = "RM" + price * num;
+                        getAmount();
+                    }
+                }
+
+                delBtn.onclick = function() {
+                    var result = confirm("Confirm to delete?");
+                    if (result) {
+                        oCar.removeChild(oDiv);
+                        number--;
+                        getAmount();
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    function getClass(oBox, tagname) {
+        var aTag = oBox.getElementsByTagName("*");
+        var aBox = [];
+        for (var i = 0; i < aTag.length; i++) {
+            if (aTag[i].className == tagname) {
+                aBox.push(aTag[i]);
+            }
+        }
+        return aBox;
+    }
+
+
+    var index = false;
+    function checkAll() {
+        var choose = document.getElementById("car").getElementsByTagName("i");
+        if (choose.length != 1) {
+            for (i = 1; i < choose.length; i++) {
+                if (!index) {
+                    choose[0].classList.add("i_acity2")
+                    choose[i].classList.add("i_acity");
+                } else {
+                    choose[i].classList.remove("i_acity");
+                    choose[0].classList.remove("i_acity2")
+                }
+            }
+            index = !index;
+        }
+        getAmount();
+    }
+
+
+
+    function getAmount() {
+        console.log('')
+        ns = document.getElementsByClassName("i_acity");
+        console.log(ns);
+        sum = 0;
+
+        document.getElementById("price_num").innerText = sum;
+        for (y = 0; y < ns.length; y++) {
+
+            amount_info = ns[y].parentElement.parentElement.lastElementChild.previousElementSibling;
+            num = parseInt(amount_info.innerText);
+            sum = sum + num;
+            document.getElementById("price_num").innerText = sum;
+        }
+    }
+function updateQuantity() {
+    getAmount();
+}
+
+
+
+</script>
+
+</head>
+<body topmargin=50 leftmargin=50 link=#A86F4F alink=aqua vlink=#B02A14 align="center">
+<table border="0" width="100%" height="10%">
+<tr bgcolor="#FFF">
+    <td rowspan="3"><a href="ChauWanQiao_DCS2309265_Project.html"><img src="jellydog.jpg" height=100 width=100 border=6 align=left></a>
+    <td colspan="4"></td>
+</tr>
+<tr align="center" bgcolor="#FFF">
+<td colspan="5"><img src="welcome.png" height="10%" width="40%"></td>
+</tr>
+
+<tr bgcolor="#FFF">
+    <td colspan="4"></td>
+</tr>
+
+<tr bgcolor="#FFF">
+    <td colspan="5"><hr size="5" color="black" width="100%"></td>
+</tr>
+</table>
+
+<div id="car" class="car">
+
+    <div class="head_row hid">
+        <div class="check left"> <i onclick="checkAll()">√</i></div>
+        <div class="img left">Select All</div>
+        <div class="name left">Product Name</div>
+        <div class="price left">Unit Price</div>
+        <div class="number left">Quantity</div>
+        <div class="subtotal left">Total Amount</div>
+        <div class="ctrl left">Action</div>
+    </div>
+
+
+</div>
+<div id="sum_area">
+    <div id="pay">Claim Out</div>
+    <div id="pay_amount">Total Amount : RM<span id="price_num"> 0 </span></div>
+</div>
+
+
+
+<div id="box">
+    <h2 id="h0" class="box_head"><span>Products you may be interested in</span></h2>
+    <ul>
+    </ul>
+</div>
+
+</body>
+</html>
