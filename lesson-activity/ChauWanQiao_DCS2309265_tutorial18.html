@@ -1,0 +1,161 @@
+<html>
+<head>
+    <link rel="icon" href="backwhite.jpg" type="image/png">
+<script>
+    function validateForm(){
+        let x = document.MyFirstForm.studentid.value;
+        if (x == ""){
+            alert("Please provide your student ID!");
+            return false;
+        }
+        let y = document.MyFirstForm.ic.value;
+        var letters = /^[0-9]/;
+        if(!y.match(letters))
+        {
+            alert("Please input only numbers for IC number!");
+            return false;
+        }
+        let a = document.MyFirstForm.emailad.value;
+            var atPosition = a.indexOf("@");
+            var dotPosition = a.lastIndexOf(".");
+
+            if (atPosition < 1 || (dotPosition - atPosition < 2)) {
+                alert("Please enter correct email ID");
+                document.MyFirstForm.emailad.focus();
+                return false;
+            }
+        
+    }
+</script>
+</head>
+<body>
+    <style>
+        body{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        table{
+            border-style: groove;
+            color: black;
+            outline: 5%;
+            padding: 1%;
+            border-collapse:separate;
+        }
+        
+    </style>
+    <center>
+        <form name="MyFirstForm" onsubmit="return validateForm()">
+            <table width="60%" height="20%">
+                <h1>DCS 3003 Website Design Course Survey</h1>
+                <tr align="left">
+                    <td colspan="4"><font color=#1A6AA7><u>Personal detail</u></font></td>
+                </tr>
+
+                <tr align="left">
+                    <td>
+                        <b>Student ID  :</b>
+                    </td>
+                    <td>
+                        <input type="text" name="studentid">
+                    </td>
+                    <td>
+                        <b>Student Name  :</b>
+                    </td>
+                    <td>
+                        <input type="text" name="studentname">
+                    </td>
+
+                </tr>
+
+                <tr align="left">
+                    <td>
+                        <b>Email Address  :</b>
+                    </td>
+                    <td>
+                        <input type="text" name="emailad">
+                    </td>
+                    <td>
+                        <b>IC No.  :</b>
+                    </td>
+                    <td>
+                        <input type="text" name="ic">
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Course  :</b></td>
+                    <td>
+                        <select>
+                        <option value="0" >-List of Courses-</option>
+                        <option value="DCS">Diploma In Computer Science</option>
+                        <option value="DIB">Diploma In Buisness</option>
+                        <option value="DAS">Diploma In Airline Services</option>
+                        </select> 
+                    </td>
+                    <td>
+                        <b>D.O.B  :</b>
+                    </td>
+                    <td>
+                        <input type="date" name="dob">
+                    </td>
+
+                </tr>
+            </table>
+            <br>
+            <table  width="60%" height="40%">
+                <tr align="left">
+                    <td colspan="2">
+                        <font color=#1A6AA7><u>Questions</u></font><br>
+                        <font color="red">Please answer all questions</font>
+                    </td>
+                </tr>
+                <tr align="left">
+                    <td><br>1) Have you grasped the content of the Website Design so far?</td>
+                    <td>
+                        <br>&emsp;&emsp;&emsp;<input type="radio" name="option1" value="yes">Yes&emsp;&emsp;&emsp;&nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <br><td>    </td>
+                    <td>&emsp;&emsp;&emsp;<input type="radio" name="option2" value="no">No</td>&emsp;&emsp;&emsp;&nbsp;
+                </tr>
+                <tr>
+                    <td colspan="2">  </td>
+                </tr>
+                <tr>
+                    <td><br>
+                        2) Can you now create a simple but interactive website?
+                    </td>
+                    <td>
+                        <br>&emsp;&emsp;&emsp;<input type="radio" name="option1" value="yes">Yes
+                    </td>
+                </tr>
+                <tr>
+                    <td>    </td>
+                    <td>&emsp;&emsp;&emsp;<input type="radio" name="option2" value="no">No</td>
+                </tr>
+                <tr>
+                    <td>3) What have you learned so far?</td>
+                    <td>
+                        <br><br>&emsp;&emsp;&emsp;<input type="checkbox" name="fav_sub" value="knowledge">Knowledge<br>
+                        &emsp;&emsp;&emsp;<input type="checkbox" name="fav_sub" value="practicalskills">Practical Skills<br>
+                        &emsp;&emsp;&emsp;<input type="checkbox" name="fav_sub" value="problemsolving">Problem Solving<br>
+                        &emsp;&emsp;&emsp;<input type="checkbox" name="fav_sub" value="Self-ExplorationSkills">Self-Exploration Skills<br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        4) Wish items/suggestions
+                    </td>
+                    <td>   </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><textarea rows=4 cols="115" name=wish></textarea></td>
+                </tr>
+
+            </table>
+            <br>
+            <input type="submit" value="Submit">
+            <input type="reset" value="Reset">
+        </form>
+    </center>
+</body>
+</html>
