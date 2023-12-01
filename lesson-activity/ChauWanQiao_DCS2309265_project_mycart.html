@@ -140,11 +140,19 @@
                         num = parseInt(num);
                         num++;
                         node.innerText = num;
-
+                        node.innerText = num;
                         price = pt.innerText;
-                        price = price.substring(0, price.length - 1);
+                        price = price.substring(0, price.length - 1);		
                         at.innerText = "RM" + price * num;
                         getAmount();
+
+                        price = parseFloat(pt.innerText.replace(/[^\d.]/g, ''));
+
+                        // 检查提取的价格是否是有效的数字
+                        if (!isNaN(price)) {
+                            at.innerText = "RM" + (price * num).toFixed(2); // 将结果格式化为两位小数
+                            getAmount();
+                        }
                     }
                 }
                 var d_btn = document.getElementsByClassName("count_d");
@@ -214,24 +222,31 @@
 
 
     function getAmount() {
-        console.log('')
-        ns = document.getElementsByClassName("i_acity");
-        console.log(ns);
-        sum = 0;
+        var items = document.getElementsByClassName("i_acity");
+        var totalAmount = 0;
 
-        document.getElementById("price_num").innerText = sum;
-        for (y = 0; y < ns.length; y++) {
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i].parentElement.parentElement;
 
-            amount_info = ns[y].parentElement.parentElement.lastElementChild.previousElementSibling;
-            num = parseInt(amount_info.innerText);
-            sum = sum + num;
-            document.getElementById("price_num").innerText = sum;
+            var priceString = item.getElementsByClassName("price")[0].innerText;
+            var quantity = parseInt(item.getElementsByClassName("c_num")[0].innerText);
+
+            // Extract the numeric part of the price
+            var price = parseFloat(priceString.replace(/[^\d.]/g, ''));
+
+            // Check if price is a valid number
+            if (!isNaN(price)) {
+                // Calculate the subtotal for the current item
+                var subtotal = price * quantity;
+
+                // Add the subtotal to the total amount
+                totalAmount += subtotal;
+            }
         }
-    }
-function updateQuantity() {
-    getAmount();
-}
 
+        // Update the total amount in the HTML
+        document.getElementById("price_num").innerText = totalAmount.toFixed(2);
+    }
 
 
 </script>
