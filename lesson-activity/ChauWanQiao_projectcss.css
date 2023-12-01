@@ -1,0 +1,16 @@
+table td {
+    font: 20px;
+    font-size: 50;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+}
+
+video:focus{
+    outline: none;
+}
